@@ -10,13 +10,27 @@ import os
 
 
 class Product:
-    def __init__(self, pName, pFirstDate, pFirstPrice, pLastPrice):
+    def __init__(self, pName, pFirstDate, pFirstPrice, pLastPrice, pLastDate="N/A"):
+        if (pName != "Product Name"):
+            self.pFirstDate = pFirstDate.replace("-", "/")
+            dayx, monthx, yearx = self.pFirstDate.split('/')
+            self.pFirstDate = f"{dayx.zfill(2)}/{monthx.zfill(2)}/{yearx}"
+            self.pFirstPrice = pFirstPrice[0:pFirstPrice.find(
+                ",")].replace(".", "")
+
+            self.pLastDate = date.today().strftime("%d/%m/%Y")
+            day, month, year = self.pLastDate.split('/')
+            self.pLastDate = f"{day.zfill(2)}/{month.zfill(2)}/{year}"
+
+            self.pLastPrice = pLastPrice[0:pLastPrice.find(
+                ",")].replace(".", "")
+        else:
+            self.pFirstDate = pFirstDate
+            self.pFirstPrice = pFirstPrice
+            self.pLastDate = pLastDate
+            self.pLastPrice = pLastPrice
+
         self.pName = pName
-        self.pFirstDate = pFirstDate.replace("-", "/")
-        self.pFirstPrice = pFirstPrice[0:pFirstPrice.find(
-            ",")].replace(".", "")
-        self.pLastDate = date.today().strftime("%d/%m/%Y")
-        self.pLastPrice = pLastPrice[0:pLastPrice.find(",")].replace(".", "")
 
     def __str__(self):
         return self.pName + "\t" + self.pLastDate + "\t" + self.pLastPrice + "\t" + self.pFirstDate + "\t" + self.pFirstPrice + "\n"
@@ -32,11 +46,19 @@ class Product:
 
 
 def writeToFile(product):
-    with open("./data/products.csv", "a", newline='', encoding="utf-8") as file:
+    with open("./data/products.csv", "a", newline='', encoding="utf-8 sig") as file:
         writer = csv.DictWriter(file, fieldnames=[
             'pName', 'pLastDate', 'pLastPrice', 'pFirstDate', 'pFirstPrice'])
+
         writer.writerow(product.to_dict())
 
+
+if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").st_size == 0:
+    # Write the header row
+    writeToFile(Product("Product Name", "Current Price",
+                "Old Date", "Old Price", "Current Date"))
+
+# ...
 
 website = "https://www.cimri.com/"
 path = ".\chromedriver.exe"
