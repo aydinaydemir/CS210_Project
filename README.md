@@ -12,26 +12,32 @@ This project aims to investigate the inflation rates in Turkey and compare them 
 
 ## Files
 
-- `data_collection.py`: A script that uses Selenium to extract the required data from the target website.
+- `data_collection.py`: A script that uses Selenium to extract the required data from the target website. (www.cimri.com)
 - `data_analysis.py`: A script that imports, cleans, analyzes, and visualizes the data.
 - `products.csv`: CSV file containing the product data gathered from the target website.
 - `productLinks.txt`: Text file containing the relative URLs of the products to be scraped from the target website.
 
 ## How to Run
 
-1. Install the necessary Python packages.
+1. Clone the repository.
+
+   ```bash
+   git clone https://github.com/aydinaydemir/CS210_Project.git
+   ```
+
+2. Install the necessary Python packages.
 
    ```bash
    pip install -r requirements.txt
    ```
 
-2. Run the data collection script to gather data. This will update `products.csv` with the latest product data.
+3. Run the data collection script to gather data. This will update `products.csv` with the latest product data.
 
    ```bash
    python data_collection.py
    ```
 
-3. Run the data analysis script to analyze and visualize the gathered data.
+4. Run the data analysis script to analyze and visualize the gathered data.
    ```bash
    python data_analysis.py
    ```
@@ -44,14 +50,7 @@ The data is then cleaned and analyzed. This process involves handling missing va
 
 The goal is to assess the inflation rates by looking at the price changes of daily purchases and comparing them with the official inflation rates in Turkey.
 
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests to us.
-
 ## Authors
 
-- [Your Name]
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+- Aydın Aydemir
+- İrem Kök
