@@ -5,6 +5,8 @@ from selenium.common.exceptions import NoSuchElementException
 
 import time
 from datetime import date
+import csv
+import os
 
 
 class Product:
@@ -19,17 +21,28 @@ class Product:
     def __str__(self):
         return self.pName + "\t" + self.pLastDate + "\t" + self.pLastPrice + "\t" + self.pFirstDate + "\t" + self.pFirstPrice + "\n"
 
+    def to_dict(self):
+        return {
+            "pName": self.pName,
+            "pFirstDate": self.pFirstDate,
+            "pFirstPrice": self.pFirstPrice,
+            "pLastDate": self.pLastDate,
+            "pLastPrice": self.pLastPrice
+        }
+
 
 def writeToFile(product):
-    with open("products.txt", "a", encoding="utf-8") as file:
-        file.write(product)
+    with open("./data/products.csv", "a", newline='', encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=[
+            'pName', 'pLastDate', 'pLastPrice', 'pFirstDate', 'pFirstPrice'])
+        writer.writerow(product.to_dict())
 
 
 website = "https://www.cimri.com/"
 path = ".\chromedriver.exe"
 driver = webdriver.Chrome(path)
 
-file_path = "./productLinks.txt"  # Replace with the actual file path
+file_path = "./data/productLinks.txt"
 
 # Read the contents of the file
 with open(file_path, "r") as file:
@@ -38,7 +51,6 @@ with open(file_path, "r") as file:
 # Strip any leading/trailing whitespace characters from each line and create the list
 products = [line.strip() for line in products]
 
-print(products)
 
 for i in range(len(products)):
     driver.get(website + products[i])
@@ -95,7 +107,8 @@ for i in range(len(products)):
                 price = "N/A"
 
             p = Product(productName, dateX, price, currentPrice)
-            writeToFile(str(p))
+            print(p)
+            writeToFile(p)
 
         except NoSuchElementException:
             print("SVG element not found")
