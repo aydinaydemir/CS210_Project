@@ -10,7 +10,7 @@ import os
 
 
 class Product:
-    def __init__(self, pName, pFirstDate, pFirstPrice, pLastPrice, pLastDate="N/A"):
+    def __init__(self, pName, pFirstDate, pFirstPrice, pLastPrice, pCategory, pLastDate="N/A"):
         if (pName != "Product Name"):
             self.pFirstDate = pFirstDate.replace("-", "/")
             dayx, monthx, yearx = self.pFirstDate.split('/')
@@ -24,39 +24,43 @@ class Product:
 
             self.pLastPrice = pLastPrice[0:pLastPrice.find(
                 ",")].replace(".", "")
+            self.pCategory = pCategory
         else:
             self.pFirstDate = pFirstDate
             self.pFirstPrice = pFirstPrice
             self.pLastDate = pLastDate
             self.pLastPrice = pLastPrice
-
+            self.pCategory = pCategory
         self.pName = pName
 
     def __str__(self):
-        return self.pName + "\t" + self.pLastDate + "\t" + self.pLastPrice + "\t" + self.pFirstDate + "\t" + self.pFirstPrice + "\n"
+        return self.pName + "\t" + self.pLastDate + "\t" + self.pLastPrice + "\t" + self.pFirstDate + "\t" + self.pFirstPrice + "\t" + self.pCategory + "\n"
 
     def to_dict(self):
         return {
             "pName": self.pName,
+            "pLastDate": self.pLastDate,
+            "pLastPrice": self.pLastPrice,
             "pFirstDate": self.pFirstDate,
             "pFirstPrice": self.pFirstPrice,
-            "pLastDate": self.pLastDate,
-            "pLastPrice": self.pLastPrice
+            "pCategory": self.pCategory
         }
 
 
 def writeToFile(product):
     with open("./data/products.csv", "a", newline='', encoding="utf-8 sig") as file:
         writer = csv.DictWriter(file, fieldnames=[
-            'pName', 'pLastDate', 'pLastPrice', 'pFirstDate', 'pFirstPrice'])
-
+            'pName', 'pLastDate', 'pLastPrice', 'pFirstDate', 'pFirstPrice', 'pCategory'])
         writer.writerow(product.to_dict())
 
 
 if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").st_size == 0:
     # Write the header row
-    writeToFile(Product("Product Name", "Current Price",
-                "Old Date", "Old Price", "Current Date"))
+    if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").st_size == 0:
+        # Write the header row
+        writeToFile(Product("Product Name", "Old Date", "Old Price",
+                    "Current Price", "Category", "Current Date"))
+
 
 # ...
 
@@ -78,6 +82,8 @@ for i in range(len(products)):
     driver.get(website + products[i])
 
     try:
+
+        productCategory = products[i][0:products[i].find("/")]
 
         # Click on the button
         oneYearButton = driver.find_element(
@@ -128,7 +134,8 @@ for i in range(len(products)):
             except NoSuchElementException:
                 price = "N/A"
 
-            p = Product(productName, dateX, price, currentPrice)
+            p = Product(productName, dateX, price,
+                        currentPrice, productCategory)
             print(p)
             writeToFile(p)
 
