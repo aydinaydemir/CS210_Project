@@ -49,8 +49,3 @@ The project starts with data collection using Selenium to scrape product data, i
 The data is then cleaned and analyzed. This process involves handling missing values, duplicated rows, and type conversions. A detailed exploratory data analysis is carried out to gain insights from the data, which is followed by data visualization.
 
 The goal is to assess the inflation rates by looking at the price changes of daily purchases and comparing them with the official inflation rates in Turkey.
-
-## Authors
-
-- Aydın Aydemir
-- İrem Kök
