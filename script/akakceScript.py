@@ -129,7 +129,7 @@ df = pd.DataFrame({
     'Old Price': Old_Price,
     'Category': Category
 })
-df.to_csv('./data/datasets/products_akakce.csv',
+df.to_csv('./data/datasets/akakceProducts.csv',
           encoding='utf-8-sig', index=False)
 
 

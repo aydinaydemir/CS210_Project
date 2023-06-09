@@ -48,15 +48,15 @@ class Product:
 
 
 def writeToFile(product):
-    with open("./data/datasets/products.csv", "a", newline='', encoding="utf-8 sig") as file:
+    with open("./data/datasets/cimriProducts.csv", "a", newline='', encoding="utf-8 sig") as file:
         writer = csv.DictWriter(file, fieldnames=[
             'pName', 'pLastDate', 'pLastPrice', 'pFirstDate', 'pFirstPrice', 'pCategory'])
         writer.writerow(product.to_dict())
 
 
-if not os.path.isfile("./data/datasets/products.csv") or os.stat("./data/products.csv").st_size == 0:
+if not os.path.isfile("./data/datasets/cimriProducts.csv") or os.stat("./data/cimriProducts.csv").st_size == 0:
     # Write the header row
-    if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").st_size == 0:
+    if not os.path.isfile("./data/cimriProducts.csv") or os.stat("./data/cimriProducts.csv").st_size == 0:
         # Write the header row
         writeToFile(Product("Product Name", "Old Date", "Old Price",
                     "Current Price", "Category", "Current Date"))
