@@ -31,10 +31,14 @@ This project aims to investigate the inflation rates in Turkey and compare them 
    pip install -r requirements.txt
    ```
 
-3. Run the data collection script to gather data. This will update `products.csv` with the latest product data.
+3. Run the data collection script to gather data. This will update `akakceProducts.csv` and `cimriProducts.csv` with the latest product data.
 
    ```bash
-   python data_collection.py
+   python akakceScript.py
+   ```
+
+   ```bash
+   python cimriScript.py
    ```
 
 4. Run the data analysis script to analyze and visualize the gathered data.
