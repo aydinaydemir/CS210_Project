@@ -95,27 +95,27 @@ for product_link in product_links:
                                 Category.append(productCategory)
 
                             except:
-                                bozuk_linkler.append(product_link)
+
                                 print(
                                     "Error Extracting Earlier Price and Date!!: ", product_link)
                         except:
-                            bozuk_linkler.append(product_link)
+
                             print("Error Dragging the Little Button!!: ",
                                   product_link)
                     except:
-                        bozuk_linkler.append(product_link)
+
                         print("Error Extracting Current Price!!: ", product_link)
                 except:
-                    bozuk_linkler.append(product_link)
+
                     print("Error Extracting Product Name!!:", product_link)
             except:
-                bozuk_linkler.append(product_link)
+
                 print("Error clicking the oneYearButton!!:", product_link)
         except:
-            bozuk_linkler.append(product_link)
+
             print("Error clicking the fiyatDegisimiButton!!:", product_link)
     except:
-        bozuk_linkler.append(product_link)
+
         print("Error Extracting Product Category!!")
 
     print("------------------------------------")
