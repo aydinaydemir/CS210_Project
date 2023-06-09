@@ -48,13 +48,13 @@ class Product:
 
 
 def writeToFile(product):
-    with open("./data/products.csv", "a", newline='', encoding="utf-8 sig") as file:
+    with open("./data/datasets/products.csv", "a", newline='', encoding="utf-8 sig") as file:
         writer = csv.DictWriter(file, fieldnames=[
             'pName', 'pLastDate', 'pLastPrice', 'pFirstDate', 'pFirstPrice', 'pCategory'])
         writer.writerow(product.to_dict())
 
 
-if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").st_size == 0:
+if not os.path.isfile("./data/datasets/products.csv") or os.stat("./data/products.csv").st_size == 0:
     # Write the header row
     if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").st_size == 0:
         # Write the header row
@@ -65,10 +65,10 @@ if not os.path.isfile("./data/products.csv") or os.stat("./data/products.csv").s
 # ...
 
 website = "https://www.cimri.com/"
-path = ".\chromedriver.exe"
+path = "./chromeDriver/chromedriver.exe"
 driver = webdriver.Chrome(path)
 
-file_path = "./data/productLinks.txt"
+file_path = "./data/cimriLinks.txt"
 
 # Read the contents of the file
 with open(file_path, "r") as file:
