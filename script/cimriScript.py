@@ -54,9 +54,9 @@ def writeToFile(product):
         writer.writerow(product.to_dict())
 
 
-if not os.path.isfile("./data/datasets/cimriProducts.csv") or os.stat("./data/cimriProducts.csv").st_size == 0:
+if not os.path.isfile("./data/datasets/cimriProducts.csv") or os.stat("./data/datasets/cimriProducts.csv").st_size == 0:
     # Write the header row
-    if not os.path.isfile("./data/cimriProducts.csv") or os.stat("./data/cimriProducts.csv").st_size == 0:
+    if not os.path.isfile("./data/datasets/cimriProducts.csv") or os.stat("./data/datasets/cimriProducts.csv").st_size == 0:
         # Write the header row
         writeToFile(Product("Product Name", "Old Date", "Old Price",
                     "Current Price", "Category", "Current Date"))
