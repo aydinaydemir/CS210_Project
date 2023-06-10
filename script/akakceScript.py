@@ -29,94 +29,102 @@ Current_Price = []
 Old_Date = []
 Old_Price = []
 Category = []
+faultyLinks = []
 
-
+countt = 0
 for product_link in product_links:
-    driver.get(product_link)
-    time.sleep(2)
+    countt = countt + 1 
+    print (str(countt) + "/" + str(len(product_links)))
 
-    ### Extract Product Category ###
     try:
-        category_link = product_link.replace("https://www.akakce.com/", "")
-        productCategory = category_link[0:category_link.find("/")]
-        print("Product Category: ", productCategory)
+        driver.get(product_link)
+        time.sleep(2)
 
+        ### Extract Product Category ###
         try:
-            fiyatDegisimiButton = driver.find_element(
-                By.XPATH, '//div[@class="graph_w"]')
-            fiyatDegisimiButton.click()
-            time.sleep(1)
+            category_link = product_link.replace("https://www.akakce.com/", "")
+            productCategory = category_link[0:category_link.find("/")]
+            print("Product Category: ", productCategory)
 
             try:
-                oneYearButton = driver.find_element(
-                    By.XPATH, '//span[@id="oneYear"]')
-                oneYearButton.click()
+                fiyatDegisimiButton = driver.find_element(
+                    By.XPATH, '//div[@class="graph_w"]')
+                fiyatDegisimiButton.click()
+                time.sleep(1)
 
-                ### Extract Product Name ###
                 try:
-                    productName = driver.find_element(
-                        By.XPATH, "//b[@id='priceTitle']").text.strip()
-                    productName = productName[0:productName.find(" son")]
-                    print("Product Name: ", productName)
+                    oneYearButton = driver.find_element(
+                        By.XPATH, '//span[@id="oneYear"]')
+                    oneYearButton.click()
 
-                    ### Extract Current Price ###
+                    ### Extract Product Name ###
                     try:
-                        canvas = driver.find_element(
-                            By.XPATH, "//div[@class='canvas_v8_w m1_v8']")
-                        current_price = canvas.find_element(By.XPATH, "./p").find_element(
-                            By.XPATH, "./span[3]").find_element(By.XPATH, "./span").text.strip()
-                        current_price = current_price.split(
-                            ",")[0].replace(".", "")
-                        print("Current Price: ", current_price)
+                        productName = driver.find_element(
+                            By.XPATH, "//b[@id='priceTitle']").text.strip()
+                        productName = productName[0:productName.find(" son")]
+                        print("Product Name: ", productName)
 
+                        ### Extract Current Price ###
                         try:
-                            litte_button = driver.find_element(
-                                By.XPATH, '//div[@id="tooltip"]')
-                            achains = ActionChains(driver)
-                            achains.move_to_element(litte_button).drag_and_drop_by_offset(
-                                litte_button, -483, 0).perform()
+                            canvas = driver.find_element(
+                                By.XPATH, "//div[@class='canvas_v8_w m1_v8']")
+                            current_price = canvas.find_element(By.XPATH, "./p").find_element(
+                                By.XPATH, "./span[3]").find_element(By.XPATH, "./span").text.strip()
+                            current_price = current_price.split(
+                                ",")[0].replace(".", "")
+                            print("Current Price: ", current_price)
 
-                            ### Extract Earlier Price and Date ###
                             try:
-                                one_year_ago_details = driver.find_element(
-                                    By.XPATH, "//span[@class='tp']").text.strip()
-                                split_data = one_year_ago_details.split("\n")
-                                earlier_date = split_data[0].replace(".", "/")
-                                earlier_price = split_data[1].split(
-                                    ",")[0].replace(".", "")
-                                print("Earlier date: ", earlier_date)
-                                print("Earlier price: ", earlier_price)
+                                litte_button = driver.find_element(
+                                    By.XPATH, '//div[@id="tooltip"]')
+                                achains = ActionChains(driver)
+                                achains.move_to_element(litte_button).drag_and_drop_by_offset(
+                                    litte_button, -483, 0).perform()
 
-                                ### All successfully extracted, now write them to the array ###
-                                Old_Date.append(earlier_date)
-                                Old_Price.append(earlier_price)
-                                Current_Price.append(current_price)
-                                Product_Name.append(productName)
-                                Category.append(productCategory)
+                                ### Extract Earlier Price and Date ###
+                                try:
+                                    one_year_ago_details = driver.find_element(
+                                        By.XPATH, "//span[@class='tp']").text.strip()
+                                    split_data = one_year_ago_details.split("\n")
+                                    earlier_date = split_data[0].replace(".", "/")
+                                    earlier_price = split_data[1].split(
+                                        ",")[0].replace(".", "")
+                                    print("Earlier date: ", earlier_date)
+                                    print("Earlier price: ", earlier_price)
 
+                                    ### All successfully extracted, now write them to the array ###
+                                    Old_Date.append(earlier_date)
+                                    Old_Price.append(earlier_price)
+                                    Current_Price.append(current_price)
+                                    Product_Name.append(productName)
+                                    Category.append(productCategory)
+
+                                except:
+                                    faultyLinks.append(product_link)
+                                    print(
+                                        "Error Extracting Earlier Price and Date!!: ", product_link)
                             except:
-
-                                print(
-                                    "Error Extracting Earlier Price and Date!!: ", product_link)
+                                faultyLinks.append(product_link)
+                                print("Error Dragging the Little Button!!: ",
+                                    product_link)
                         except:
-
-                            print("Error Dragging the Little Button!!: ",
-                                  product_link)
+                            faultyLinks.append(product_link)
+                            print("Error Extracting Current Price!!: ", product_link)
                     except:
-
-                        print("Error Extracting Current Price!!: ", product_link)
+                        faultyLinks.append(product_link)
+                        print("Error Extracting Product Name!!:", product_link)
                 except:
-
-                    print("Error Extracting Product Name!!:", product_link)
+                    faultyLinks.append(product_link)
+                    print("Error clicking the oneYearButton!!:", product_link)
             except:
-
-                print("Error clicking the oneYearButton!!:", product_link)
+                faultyLinks.append(product_link)
+                print("Error clicking the fiyatDegisimiButton!!:", product_link)
         except:
-
-            print("Error clicking the fiyatDegisimiButton!!:", product_link)
+            faultyLinks.append(product_link)
+            print("Error Extracting Product Category!!", product_link)
     except:
-
-        print("Error Extracting Product Category!!")
+        faultyLinks.append(product_link)
+        print("Error on Get Request!!", product_link)
 
     print("------------------------------------")
 
@@ -132,5 +140,11 @@ df = pd.DataFrame({
 df.to_csv('./data/datasets/akakceProducts.csv',
           encoding='utf-8-sig', index=False)
 
+## STORE THE PROBLEMATIC LINKS IN A CSV FILE TO BE REMOVED LATER ###
+df_2 = pd.DataFrame({
+    'bozuk linlker' : faultyLinks
+})
+df_2.to_csv('./data/datasets/faultyLinks.csv', 
+            encoding='utf-8-sig')
 
 driver.quit()
