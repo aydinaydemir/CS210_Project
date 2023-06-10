@@ -2,20 +2,36 @@
 
 ## Introduction
 
-This project aims to investigate the inflation rates in Turkey and compare them with the percentage increase in prices for young generations' daily purchases. The project involves web scraping, data cleaning, analysis, and visualization.
+This project aims to investigate the inflation rates in Turkey and compare them with the percentage increase in prices for young generations' daily purchases. The project involves web scraping, data cleaning, analysis, visualization and ML.
 
 ## Requirements
 
-- Python 3.8+
-- Libraries: Selenium, Pandas, NumPy, Matplotlib, Seaborn
-- Google Chrome browser and ChromeDriver installed and configured
+- Python 3.8 or later.
+- The following Python libraries installed:
+
+* Pandas: For data handling and manipulation
+* NumPy: For numerical calculations
+* Matplotlib: For plotting and visualisation
+* Seaborn: For advanced plotting and visualisation
+* Plotly: For creating interactive plots
+* Scikit-Learn: For machine learning tasks like clustering
+* SciPy: For scientific computations such as distance calculation
+
+- Selenium and ChromeDriver:
+
+* Selenium is used for automating web applications for testing purposes. You should have Google Chrome installed and ChromeDriver configured for Selenium to work. You can download ChromeDriver from the official site.
 
 ## Files
 
-- `data_collection.py`: A script that uses Selenium to extract the required data from the target website. (www.cimri.com)
+- `cimriScript.py`: A script that uses Selenium to extract the required data from the target website. (www.cimri.com)
+- `cimriScript.py`: A script that uses Selenium to extract the required data from the target website. (www.cimri.com)
 - `data_analysis.py`: A script that imports, cleans, analyzes, and visualizes the data.
-- `products.csv`: CSV file containing the product data gathered from the target website.
-- `productLinks.txt`: Text file containing the relative URLs of the products to be scraped from the target website.
+- `cimriProducts.csv`: CSV file containing the product data gathered from the target website. (www.cimri.com)
+- `akakceProducts.csv`: CSV file containing the product data gathered from the target website. (www.akakce.com)
+- `cimriLinks.txt`: Text file containing the relative URLs of the products to be scraped from the target website. (www.cimri.com)
+- `akakceLinks.txt`: Text file containing the relative URLs of the products to be scraped from the target website. (www.akakce.com)
+- `requirements.txt`: A text file that contains the neccessary pip install versions.
+- `chromedriver.exe`: An executable file for selenium dynamic web scraping to work.
 
 ## How to Run
 
