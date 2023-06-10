@@ -8,18 +8,16 @@ This project aims to investigate the inflation rates in Turkey and compare them 
 
 - Python 3.8 or later.
 - The following Python libraries installed:
-
-* Pandas: For data handling and manipulation
-* NumPy: For numerical calculations
-* Matplotlib: For plotting and visualisation
-* Seaborn: For advanced plotting and visualisation
-* Plotly: For creating interactive plots
-* Scikit-Learn: For machine learning tasks like clustering
-* SciPy: For scientific computations such as distance calculation
+  Pandas: For data handling and manipulation
+  NumPy: For numerical calculations
+  Matplotlib: For plotting and visualisation
+  Seaborn: For advanced plotting and visualisation
+  Plotly: For creating interactive plots
+  Scikit-Learn: For machine learning tasks like clustering
+  SciPy: For scientific computations such as distance calculation
 
 - Selenium and ChromeDriver:
-
-* Selenium is used for automating web applications for testing purposes. You should have Google Chrome installed and ChromeDriver configured for Selenium to work. You can download ChromeDriver from the official site.
+  Selenium is used for automating web applications for testing purposes. You should have Google Chrome installed and ChromeDriver configured for Selenium to work. You can download ChromeDriver from the official site.
 
 ## Files
 
